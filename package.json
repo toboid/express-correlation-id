@@ -1,0 +1,25 @@
+{
+  "name": "express-correlation-id",
+  "version": "0.0.1",
+  "description": "Express middleware to correlate requests across http calls",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toboid/express-correlation-id.git"
+  },
+  "keywords": [
+    "express",
+    "logging",
+    "correlation",
+    "debug"
+  ],
+  "author": "toboid",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/toboid/express-correlation-id/issues"
+  },
+  "homepage": "https://github.com/toboid/express-correlation-id#readme"
+}
