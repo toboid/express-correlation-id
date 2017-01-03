@@ -33,7 +33,7 @@ app.use(correlator());
 ```
 
 ### `correlator.getId()`
-Returns the id for the current request. If called outside of a request returns `undefined`.
+Returns the id for the current request. If called outside of a request returns `undefined`. This function is useful if you don't want to pass the `req` object or correlation id from the handler to downstream code.
 
 ```javascript
 correlator.getId(); // Returns the current id or undefined
