@@ -6,7 +6,7 @@ npm i express-correlation-id --save
 ```
 
 ## Middleware usage example
-All middleware and route handlers following `correlator()` middleware will be within a single correlation scope. If the incoming request has a header called `x-correlation-id` then it's value will be used as the id for this request, otherwise the id will be a new uuid.
+All middleware and route handlers following the `correlator()` middleware will be within a single correlation scope. If the incoming request has a header called `x-correlation-id` then it's value will be used as the id for this request, otherwise the id will be a new uuid.
 
 ```javascript
 const correlator = require('express-correlation-id');
