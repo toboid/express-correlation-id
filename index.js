@@ -6,9 +6,13 @@ module.exports = correlationMw;
 
 function correlationMw () {
   return (req, res, next) => {
-    // TODO: set id if it's present in the incoming request header
     req.correlationId = correlator.getId;
-    correlator.withId(next);
+    const id = req.get('x-correlation-id');
+    if (id) {
+      correlator.withId(id, next);
+    } else {
+      correlator.withId(next);
+    }
   };
 }
 

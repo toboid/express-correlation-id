@@ -7,6 +7,25 @@ const correlator = require('../index');
 
 const uuidMatcher = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
+test.cb('sets id from incoming request', (t) => {
+  t.plan(1);
+
+  const testId = 'correlator-123';
+
+  const app = express();
+  app.use(correlator());
+  app.get('/', (req, res) => {
+    const actual = req.correlationId();
+    t.is(actual, testId, 'correlationId() should return id from x-correlation-id header of inbound request');
+    res.end();
+  });
+
+  request(app)
+    .get('/')
+    .set('x-correlation-id', testId)
+    .end(t.end);
+});
+
 const testCases = [{
   name: 'req.correlationId()',
   assertion: (req, t) => {
