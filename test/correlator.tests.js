@@ -7,35 +7,34 @@ const correlator = require('../index');
 
 const uuidMatcher = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
-test.cb('req.correlationId()', t => {
-  t.plan(1);
-
-  const app = express();
-  app.use(correlator());
-  app.get('/', (req, res) => {
+const testCases = [{
+  name: 'req.correlationId()',
+  assertion: (req, t) => {
     const actual = req.correlationId();
     t.regex(actual, uuidMatcher, 'correlationId() should return a uuid');
-    res.end();
-  });
-
-  request(app)
-    .get('/')
-    .end(t.end);
-});
-
-test.cb('correlator.getId()', t => {
-  t.plan(1);
-
-  const app = express();
-  app.use(correlator());
-  app.get('/', (req, res) => {
+  }
+}, {
+  name: 'correlator.getId()',
+  assertion: (req, t) => {
     const actual = correlator.getId();
     const expected = req.correlationId();
     t.is(actual, expected, 'getId() and correlationId() should return the same uuid');
-    res.end();
-  });
+  }
+}];
 
-  request(app)
-    .get('/')
-    .end(t.end);
+testCases.forEach(testCase => {
+  test.cb(testCase.name, t => {
+    t.plan(1);
+
+    const app = express();
+    app.use(correlator());
+    app.get('/', (req, res) => {
+      testCase.assertion(req, t);
+      res.end();
+    });
+
+    request(app)
+      .get('/')
+      .end(t.end);
+  });
 });
