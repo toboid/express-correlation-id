@@ -51,3 +51,6 @@ Returns the id for the current request. This function is added to the incoming `
 ```javascript
 req.correlationId(); // Returns the current id
 ```
+
+## License
+MIT
