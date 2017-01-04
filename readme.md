@@ -4,7 +4,7 @@
 [![npm version](https://badge.fury.io/js/express-correlation-id.svg)](https://badge.fury.io/js/express-correlation-id)
 
 # Express correlation id
-Express middleware to set a [correlation id](https://github.com/toboid/correlation-id) per route in express. The id can be auto-generated or set automatically from the `x-correlation-id` header of the inbound request.
+Express middleware to set a [correlation id](https://github.com/toboid/correlation-id) per route in express.
 
 ## Installation
 ```shell
