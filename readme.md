@@ -4,7 +4,7 @@
 [![npm version](https://badge.fury.io/js/express-correlation-id.svg)](https://badge.fury.io/js/express-correlation-id)
 
 # Express correlation id
-Express middleware to set a [correlation id](https://github.com/toboid/correlation-id) per route in express.
+Express middleware to set a [correlation id](https://github.com/toboid/correlation-id) per route in express. The correlation id will be consistent across async calls within the handling of a request.
 
 ## Installation
 ```shell
@@ -22,8 +22,8 @@ const app = express();
 app.use(correlator());
 
 app.get('/', (req, res) => {
-  console.log('ID for this request is:', correlator.getId());
-  console.log('ID for this request is:', req.correlationId());
+  console.log('ID for this request is:', req.correlationId()); // id for this request
+  console.log('ID for this request is:', correlator.getId());  // equal to above, not dependant on the req object
   res.end();
 })
 ```
