@@ -34,7 +34,7 @@
     "correlation-id": "^2.0.0"
   },
   "devDependencies": {
-    "ava": "^0.17.0",
+    "ava": "^0.18.1",
     "coveralls": "^2.11.14",
     "eslint": "^3.7.1",
     "eslint-config-toboid": "^1.1.0",
