@@ -2,6 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/toboid/express-correlation-id/badge.svg?branch=master)](https://coveralls.io/github/toboid/express-correlation-id?branch=master)
 [![Dependencies](https://david-dm.org/toboid/express-correlation-id.svg)](https://github.com/toboid/express-correlation-id/blob/master/package.json)
 [![npm version](https://badge.fury.io/js/express-correlation-id.svg)](https://badge.fury.io/js/express-correlation-id)
+[![Greenkeeper badge](https://badges.greenkeeper.io/toboid/express-correlation-id.svg)](https://greenkeeper.io/)
 
 # Express correlation id
 Express middleware to set a [correlation id](https://github.com/toboid/correlation-id) per route in express. The correlation id will be consistent across async calls within the handling of a request.
