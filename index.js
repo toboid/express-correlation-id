@@ -4,10 +4,12 @@ const correlator = require('correlation-id');
 
 module.exports = correlationMw;
 
-function correlationMw () {
+function correlationMw (options) {
+  const headerName = (options && options.header) || 'x-correlation-id';
+
   return (req, res, next) => {
     req.correlationId = correlator.getId;
-    const id = req.get('x-correlation-id');
+    const id = req.get(headerName);
     if (id) {
       correlator.withId(id, next);
     } else {

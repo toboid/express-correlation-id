@@ -26,6 +26,26 @@ test.cb('sets id from incoming request', (t) => {
     .end(t.end);
 });
 
+test.cb('uses configured header name', (t) => {
+  t.plan(1);
+
+  const headerName = 'x-foo';
+  const testId = 'correlator-123';
+
+  const app = express();
+  app.use(correlator({header: headerName}));
+  app.get('/', (req, res) => {
+    const actual = req.correlationId();
+    t.is(actual, testId, 'correlationId() should return id from configured header of inbound request');
+    res.end();
+  });
+
+  request(app)
+    .get('/')
+    .set(headerName, testId)
+    .end(t.end);
+});
+
 const testCases = [{
   name: 'req.correlationId()',
   assertion: (req, t) => {
