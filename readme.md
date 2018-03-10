@@ -31,12 +31,22 @@ app.get('/', (req, res) => {
 
 ## API
 
-### `correlator()`
-Returns an express middleware that creates a correlation scope for all following middleware and route handlers. If the incoming request has a header with name `x-correlation-id` then it's value will be used as the id.
+### `correlator([options])`
+Returns an express middleware that creates a correlation scope for all following middleware and route handlers. If the incoming request has a header with name `x-correlation-id` then it's value will be used as the id. The header name is configurable, see options below.
 
 ```javascript
 const app = express();
 app.use(correlator());
+```
+
+#### options
+Options to configure the correlator middleware.
+
+##### `header`
+Configures the name of the inbound header to check for a correlation id.
+```javascript
+const app = express();
+app.use(correlator({header: "x-my-correlation-header-name"}));
 ```
 
 ### `correlator.getId()`
