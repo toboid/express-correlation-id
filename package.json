@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/toboid/express-correlation-id#readme",
   "dependencies": {
-    "correlation-id": "^2.1.1"
+    "correlation-id": "^3.0.0"
   },
   "devDependencies": {
     "ava": "^0.25.0",
