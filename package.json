@@ -40,6 +40,6 @@
     "eslint-config-toboid": "^2.0.0",
     "express": "^4.14.0",
     "nyc": "^13.2.0",
-    "supertest": "^3.3.0"
+    "supertest": "^4.0.0"
   }
 }
