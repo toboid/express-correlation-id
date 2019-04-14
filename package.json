@@ -31,15 +31,15 @@
   },
   "homepage": "https://github.com/toboid/express-correlation-id#readme",
   "dependencies": {
-    "correlation-id": "^3.0.0"
+    "correlation-id": "^3.1.0"
   },
   "devDependencies": {
-    "ava": "^1.0.1",
-    "coveralls": "^3.0.2",
-    "eslint": "^5.0.0",
+    "ava": "^1.4.1",
+    "coveralls": "^3.0.3",
+    "eslint": "^5.16.0",
     "eslint-config-toboid": "^2.0.0",
-    "express": "^4.14.0",
-    "nyc": "^13.2.0",
-    "supertest": "^4.0.0"
+    "express": "^4.16.4",
+    "nyc": "^13.3.0",
+    "supertest": "^4.0.2"
   }
 }
