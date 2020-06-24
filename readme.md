@@ -34,7 +34,7 @@ To ensure the correlation id is available to other middleware, ensure that it's 
 
 ```javascript
 const app = express();
-// app.use other middlewares here
+// app.use other middleware here
 app.use(correlator());
 ```
 
