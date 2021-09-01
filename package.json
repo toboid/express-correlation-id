@@ -1,6 +1,6 @@
 {
   "name": "express-correlation-id",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "Express middleware to correlate requests across http calls",
   "main": "index.js",
   "files": [
