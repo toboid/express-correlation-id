@@ -1,6 +1,10 @@
 # Express correlation id
 Express middleware to set a [correlation id](https://github.com/toboid/correlation-id) per route in express. The correlation id will be consistent across async calls within the handling of a request.
 
+## Compatibility
+
+From v2 onwards this library requires node >=12.17.0. For older node versions use v1.x.
+
 ## Installation
 ```shell
 npm i express-correlation-id --save
