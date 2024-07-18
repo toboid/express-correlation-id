@@ -9,6 +9,7 @@ function correlationMw (options) {
 
   return (req, res, next) => {
     req.correlationId = correlator.getId;
+    req.setCorrelationId = correlator.setId;
     const id = req.get(headerName);
     if (id) {
       correlator.withId(id, next);
@@ -19,3 +20,4 @@ function correlationMw (options) {
 }
 
 correlationMw.getId = correlator.getId;
+correlationMw.setId = correlator.setId;
