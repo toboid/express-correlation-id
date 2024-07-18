@@ -14,8 +14,7 @@
   "scripts": {
     "test": "ava",
     "coverage": "nyc --check-coverage --lines 100 npm test",
-    "lint": "eslint index.js test/*.js examples/*.js",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "lint": "eslint index.js test/*.js examples/*.js"
   },
   "repository": {
     "type": "git",
@@ -38,7 +37,6 @@
   },
   "devDependencies": {
     "ava": "^3.15.0",
-    "coveralls": "^3.1.1",
     "eslint": "^7.32.0",
     "eslint-config-toboid": "^2.0.0",
     "express": "^4.17.1",

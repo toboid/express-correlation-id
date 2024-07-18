@@ -1,7 +1,0 @@
-language: node_js
-node_js:
-  - '16'
-  - '18'
-  - '20'
-script: npm run coverage
-after_success: npm run coveralls
