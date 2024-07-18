@@ -1,4 +1,4 @@
-name: "lint and test"
+name: 'lint and test'
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
 
 # This allows a subsequently queued workflow run to interrupt previous runs
 concurrency:
-  group: "${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}"
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
   cancel-in-progress: true
 
 jobs:
@@ -18,13 +18,13 @@ jobs:
 
     strategy:
       matrix:
-        node: [18, 20, 22]
+        node: [20, 22]
 
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "npm"
+          cache: 'npm'
       - run: npm ci
-      - run: npm run coverage
+      - run: npm run ci
