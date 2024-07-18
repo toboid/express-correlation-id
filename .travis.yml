@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-  - "12"
-  - "14"
-  - "16"
+  - '16'
+  - '18'
+  - '20'
 script: npm run coverage
 after_success: npm run coveralls
