@@ -4,7 +4,7 @@ Express middleware to set a [correlation id](https://github.com/toboid/correlati
 
 ## Compatibility
 
-From v2 onwards this library requires node >=12.17.0. For older node versions use v1.x.
+From v3 onwards this library requires node >=16. For older node versions use v2.x.
 
 ## Installation
 
