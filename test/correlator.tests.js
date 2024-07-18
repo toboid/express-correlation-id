@@ -1,6 +1,6 @@
 'use strict';
 
-const test = require('ava');
+const { it } = require('node:test');
 const express = require('express');
 const request = require('supertest');
 const correlator = require('../index');
@@ -8,7 +8,7 @@ const correlator = require('../index');
 const uuidMatcher =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
-test.cb('sets id from incoming request', (t) => {
+it('sets id from incoming request', async (t) => {
   t.plan(1);
 
   const testId = 'correlator-123';
@@ -18,19 +18,15 @@ test.cb('sets id from incoming request', (t) => {
   app.get('/', (req, res) => {
     setTimeout(() => {
       const actual = req.correlationId();
-      t.is(
-        actual,
-        testId,
-        'correlationId() should return id from x-correlation-id header of inbound request'
-      );
+      t.assert.strictEqual(actual, testId);
       res.end();
     });
   });
 
-  request(app).get('/').set('x-correlation-id', testId).end(t.end);
+  return request(app).get('/').set('x-correlation-id', testId);
 });
 
-test.cb('uses configured header name', (t) => {
+it('uses configured header name', async (t) => {
   t.plan(1);
 
   const headerName = 'x-foo';
@@ -41,19 +37,15 @@ test.cb('uses configured header name', (t) => {
   app.get('/', (req, res) => {
     setTimeout(() => {
       const actual = req.correlationId();
-      t.is(
-        actual,
-        testId,
-        'correlationId() should return id from configured header of inbound request'
-      );
+      t.assert.strictEqual(actual, testId);
       res.end();
     });
   });
 
-  request(app).get('/').set(headerName, testId).end(t.end);
+  return request(app).get('/').set(headerName, testId);
 });
 
-test.cb('sets id using req.setCorrelationId(id)', (t) => {
+it('sets id using req.setCorrelationId(id)', async (t) => {
   t.plan(1);
 
   const testId = 'correlator-123';
@@ -67,19 +59,15 @@ test.cb('sets id using req.setCorrelationId(id)', (t) => {
   app.get('/', (req, res) => {
     setTimeout(() => {
       const actual = req.correlationId();
-      t.is(
-        actual,
-        testId,
-        'correlationId() should return id set using setCorrelationId()'
-      );
+      t.assert.strictEqual(actual, testId);
       res.end();
     });
   });
 
-  request(app).get('/').end(t.end);
+  return request(app).get('/');
 });
 
-test.cb('sets id using correlator.setId(id)', (t) => {
+it('sets id using correlator.setId(id)', async (t) => {
   t.plan(1);
 
   const testId = 'correlator-123';
@@ -93,56 +81,28 @@ test.cb('sets id using correlator.setId(id)', (t) => {
   app.get('/', (req, res) => {
     setTimeout(() => {
       const actual = req.correlationId();
-      t.is(
-        actual,
-        testId,
-        'correlationId() should return id set using setCorrelationId()'
-      );
+      t.assert.strictEqual(actual, testId);
       res.end();
     });
   });
 
-  request(app).get('/').end(t.end);
+  return request(app).get('/');
 });
 
-const testCases = [
-  {
-    name: 'req.correlationId()',
-    assertions: 1,
-    assertion: (req, t) => {
-      const actual = req.correlationId();
-      t.regex(actual, uuidMatcher, 'correlationId() should return a uuid');
-    },
-  },
-  {
-    name: 'correlator.getId()',
-    assertions: 2,
-    assertion: (req, t) => {
-      const actual = correlator.getId();
-      const expected = req.correlationId();
-      t.is(
-        actual,
-        expected,
-        'getId() and correlationId() should return the same uuid'
-      );
-      t.regex(actual, uuidMatcher, 'correlationId() should return a uuid');
-    },
-  },
-];
+it('gets the id with correlator.getId() and ', async (t) => {
+  t.plan(2);
 
-testCases.forEach((testCase) => {
-  test.cb(testCase.name, (t) => {
-    t.plan(testCase.assertions);
-
-    const app = express();
-    app.use(correlator());
-    app.get('/', (req, res) => {
-      setTimeout(() => {
-        testCase.assertion(req, t);
-        res.end();
-      });
+  const app = express();
+  app.use(correlator());
+  app.get('/', (req, res) => {
+    setTimeout(() => {
+      const actualGetId = correlator.getId();
+      const actualCorrelationid = req.correlationId();
+      t.assert.strictEqual(actualGetId, actualCorrelationid);
+      t.assert.match(actualGetId, uuidMatcher);
+      res.end();
     });
-
-    request(app).get('/').end(t.end);
   });
+
+  return request(app).get('/');
 });
