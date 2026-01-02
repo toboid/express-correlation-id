@@ -6,7 +6,7 @@ const app = express();
 
 app.use(correlator());
 
-app.get('*', (req: CorrelationIdRequest, res) => {
+app.get('/example', (req: CorrelationIdRequest, res) => {
   console.log(`${req.correlationId()} requested url ${req.url}`);
 
   res.on('finish', () => {
@@ -18,7 +18,7 @@ app.get('*', (req: CorrelationIdRequest, res) => {
   });
 });
 
-function getRandomNumber (callback: (err: Error | null, randomNumber: number) => void) {
+function getRandomNumber(callback: (err: Error | null, randomNumber: number) => void) {
   setTimeout(() => {
     console.log(`${correlator.getId()} getting random number`);
 
