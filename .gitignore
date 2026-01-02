@@ -38,3 +38,6 @@ jspm_packages
 
 # Claude
 .claude/settings.local.json
+
+# TypeScript
+dist
