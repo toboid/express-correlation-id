@@ -10,7 +10,16 @@ export interface CorrelationOptions {
 }
 
 export interface CorrelationMw {
-  (options?: CorrelationOptions): (req: CorrelationIdRequest, res: Response, next: NextFunction) => void;
+  (options?: CorrelationOptions): (req: Request, res: Response, next: NextFunction) => void;
   getId: () => string | undefined;
   setId: (id: string) => void;
+}
+
+declare global {
+  namespace Express {
+    interface Request {
+      correlationId: () => string | undefined;
+      setCorrelationId: (id: string) => void;
+    }
+  }
 }

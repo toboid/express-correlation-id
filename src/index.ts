@@ -13,7 +13,7 @@ interface CorrelationOptions {
 }
 
 interface CorrelationMw {
-  (options?: CorrelationOptions): (req: CorrelationIdRequest, _res: Response, next: NextFunction) => void;
+  (options?: CorrelationOptions): (req: Request, _res: Response, next: NextFunction) => void;
   getId: typeof correlator.getId;
   setId: typeof correlator.setId;
 }
@@ -21,9 +21,9 @@ interface CorrelationMw {
 const correlationMw = function (options?: CorrelationOptions) {
   const headerName = (options && options.header) || 'x-correlation-id';
 
-  return (req: CorrelationIdRequest, _res: Response, next: NextFunction): void => {
-    req.correlationId = correlator.getId;
-    req.setCorrelationId = correlator.setId;
+  return (req: Request, _res: Response, next: NextFunction): void => {
+    (req as CorrelationIdRequest).correlationId = correlator.getId;
+    (req as CorrelationIdRequest).setCorrelationId = correlator.setId;
     const id = req.get(headerName);
     if (id) {
       correlator.withId(id, next);

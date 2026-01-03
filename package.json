@@ -14,9 +14,9 @@
     "node": ">=12.17.0"
   },
   "scripts": {
-    "build": "tsc",
-    "lint": "eslint src/**/*.ts test/*.ts examples/*.ts",
-    "lint:fix": "eslint src/**/*.ts test/*.js examples/*.js --fix",
+    "build": "tsc --project tsconfig.build.json",
+    "lint": "tsc --noEmit && eslint src/**/*.ts test/*.ts examples/*.ts",
+    "lint:fix": "tsc --noEmit && eslint src/**/*.ts test/*.js examples/*.js --fix",
     "test": "node --import tsx --test test/*",
     "coverage": "node --import tsx --test --experimental-test-coverage test/*",
     "watch": "node --import tsx --test --watch .",

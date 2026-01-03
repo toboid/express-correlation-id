@@ -1,12 +1,11 @@
 import express from 'express';
 import correlator from '../src/index';
-import type { CorrelationIdRequest } from '../src/types';
 
 const app = express();
 
 app.use(correlator());
 
-app.get('/example', (req: CorrelationIdRequest, res) => {
+app.get('/example', (req, res) => {
   console.log(`${req.correlationId()} requested url ${req.url}`);
 
   res.on('finish', () => {
