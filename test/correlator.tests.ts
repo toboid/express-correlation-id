@@ -1,9 +1,8 @@
-'use strict';
-
-const { it } = require('node:test');
-const express = require('express');
-const request = require('supertest');
-const correlator = require('../index');
+import { it } from 'node:test';
+import express from 'express';
+import request from 'supertest';
+import correlator from '../src/index';
+import type { CorrelationIdRequest } from '../src/types';
 
 const uuidMatcher =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
@@ -15,7 +14,7 @@ it('sets id from incoming request', async (t) => {
 
   const app = express();
   app.use(correlator());
-  app.get('/', (req, res) => {
+  app.get('/', (req: CorrelationIdRequest, res) => {
     setTimeout(() => {
       const actual = req.correlationId();
       t.assert.strictEqual(actual, testId);
@@ -34,7 +33,7 @@ it('uses configured header name', async (t) => {
 
   const app = express();
   app.use(correlator({ header: headerName }));
-  app.get('/', (req, res) => {
+  app.get('/', (req: CorrelationIdRequest, res) => {
     setTimeout(() => {
       const actual = req.correlationId();
       t.assert.strictEqual(actual, testId);
@@ -52,11 +51,11 @@ it('sets id using req.setCorrelationId(id)', async (t) => {
 
   const app = express();
   app.use(correlator());
-  app.use((req, res, next) => {
+  app.use((req: CorrelationIdRequest, res, next) => {
     req.setCorrelationId(testId);
     next();
   });
-  app.get('/', (req, res) => {
+  app.get('/', (req: CorrelationIdRequest, res) => {
     setTimeout(() => {
       const actual = req.correlationId();
       t.assert.strictEqual(actual, testId);
@@ -74,11 +73,11 @@ it('sets id using correlator.setId(id)', async (t) => {
 
   const app = express();
   app.use(correlator());
-  app.use((req, res, next) => {
+  app.use((req: CorrelationIdRequest, res, next) => {
     correlator.setId(testId);
     next();
   });
-  app.get('/', (req, res) => {
+  app.get('/', (req: CorrelationIdRequest, res) => {
     setTimeout(() => {
       const actual = req.correlationId();
       t.assert.strictEqual(actual, testId);
@@ -94,7 +93,7 @@ it('gets the id with correlator.getId() and ', async (t) => {
 
   const app = express();
   app.use(correlator());
-  app.get('/', (req, res) => {
+  app.get('/', (req: CorrelationIdRequest, res) => {
     setTimeout(() => {
       const actualGetId = correlator.getId();
       const actualCorrelationid = req.correlationId();

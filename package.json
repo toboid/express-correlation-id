@@ -2,21 +2,26 @@
   "name": "express-correlation-id",
   "version": "3.0.1",
   "description": "Express middleware to correlate requests across http calls",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "index.js",
+    "dist",
+    "src",
     "test",
     "examples"
   ],
   "engines": {
-    "node": ">=12.17.0"
+    "node": ">=16"
   },
   "scripts": {
-    "lint": "eslint index.js test/*.js examples/*.js",
-    "test": "node --test test/*",
-    "coverage": "node --test --experimental-test-coverage test/*",
-    "watch": "node --test --watch .",
-    "ci": "npm run lint && npm run coverage"
+    "build": "tsc --project tsconfig.build.json",
+    "lint": "tsc --noEmit && eslint src/**/*.ts test/*.ts examples/*.ts",
+    "lint:fix": "tsc --noEmit && eslint src/**/*.ts test/*.js examples/*.js --fix",
+    "test": "node --import tsx --test test/*",
+    "coverage": "node --import tsx --test --experimental-test-coverage test/*",
+    "watch": "node --import tsx --test --watch .",
+    "prepublishOnly": "npm run build",
+    "ci": "npm run lint && npm run build && npm run coverage"
   },
   "repository": {
     "type": "git",
@@ -38,9 +43,16 @@
     "correlation-id": "^5.2.0"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-toboid": "^2.0.0",
-    "express": "^4.19.2",
-    "supertest": "^7.0.0"
+    "@types/correlation-id": "^2.1.4",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.51.0",
+    "@typescript-eslint/parser": "^8.51.0",
+    "eslint": "^9.39.2",
+    "express": "^5.2.1",
+    "globals": "^17.0.0",
+    "supertest": "^7.1.4",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }

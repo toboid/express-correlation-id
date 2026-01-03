@@ -1,12 +1,11 @@
-'use strict';
+import express from 'express';
+import correlator from '../src/index';
 
-const express = require('express');
 const app = express();
-const correlator = require('../index.js');
 
 app.use(correlator());
 
-app.get('*', (req, res) => {
+app.get('/example', (req, res) => {
   console.log(`${req.correlationId()} requested url ${req.url}`);
 
   res.on('finish', () => {
@@ -18,7 +17,7 @@ app.get('*', (req, res) => {
   });
 });
 
-function getRandomNumber (callback) {
+function getRandomNumber(callback: (err: Error | null, randomNumber: number) => void) {
   setTimeout(() => {
     console.log(`${correlator.getId()} getting random number`);
 
@@ -26,7 +25,7 @@ function getRandomNumber (callback) {
   }, 3000);
 }
 
-app.listen(3000, (err) => {
+app.listen(3000, (err?: Error) => {
   if (err) {
     return console.error(err);
   }
